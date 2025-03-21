@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SBI Car Loan Application</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+    header { background-color: #0078d4; color: white; padding: 20px; text-align: center; }
+    .form-container { max-width: 900px; margin: 30px auto; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+    .form-section { display: none; margin-bottom: 20px; }
+    .form-section.active { display: block; }
+    .btn { background-color: #0078d4; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; }
+    .btn:hover { background-color: #0056a3; }
+    .emi-display { font-size: 1.2em; color: #d32f2f; font-weight: bold; margin-top: 10px; }
+    .form-section label, 
+    .form-section input, 
+    .form-section select, 
+    .form-section p {
+        display: block; width: 100%; margin-bottom: 10px;
+    }
+    input, select {
+        padding: 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 16px;
+    }
+    footer {
+      background-color: #0078d4; color: white; text-align: center; padding: 15px; margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>SBI Car Loan Application</h1>
+</header>
+
+<div class="form-container">
+  <!-- Step 1: Personal Details -->
+  <div class="form-section active" id="step1">
+    <h2>Step 1: Personal Details</h2>
+    <label for="fullName">Full Name:</label>
+    <input type="text" id="fullName" placeholder="Enter your full name" required>
+    
+    <label for="dob">Date of Birth:</label>
+    <input type="date" id="dob" required>
+    
+    <label for="address">Address:</label>
+    <input type="text" id="address" placeholder="Enter your residential address" required>
+    
+    <label for="contact">Contact Number:</label>
+    <input type="number" id="contact" placeholder="Enter your mobile number" required>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" placeholder="Enter your email address" required>
+    
+    <button class="btn" onclick="nextStep(2)">Next Step</button>
+  </div>
+
+  <!-- Step 2: Loan Details -->
+  <div class="form-section" id="step2">
+    <h2>Step 2: Loan Details</h2>
+    <label for="loanAmount">Loan Amount (₹):</label>
+    <input type="number" id="loanAmount" placeholder="Enter loan amount in INR" required oninput="updateEMI()">
+    
+    <label for="loanTenure">Loan Tenure (in years):</label>
+    <input type="number" id="loanTenure" placeholder="Enter loan tenure in years" required oninput="updateEMI()">
+
+    <p id="emiDisplay" class="emi-display">Estimated EMI: ₹0</p>
+
+    <button class="btn" onclick="nextStep(3)">Next Step</button>
+  </div>
+
+  <!-- Step 3: Income Details -->
+  <div class="form-section" id="step3">
+    <h2>Step 3: Income Details</h2>
+    <label for="employmentStatus">Employment Status:</label>
+    <select id="employmentStatus" required>
+      <option value="" disabled selected>Select your employment status</option>
+      <option value="salaried">Salaried</option>
+      <option value="selfEmployed">Self-Employed</option>
+      <option value="pensioner">Pensioner</option>
+    </select>
+
+    <label for="income">Annual Income (₹):</label>
+    <input type="number" id="income" placeholder="Enter your annual income in INR" required>
+
+    <button class="btn" onclick="nextStep(4)">Next Step</button>
+  </div>
+
+  <!-- Step 4: Document Proofs -->
+  <div class="form-section" id="step4">
+    <h2>Step 4: Documents Required</h2>
+    <label for="identityProof">Identity Proof (Aadhar/Passport):</label>
+    <input type="text" id="identityProof" placeholder="Enter your ID proof number" required>
+
+    <label for="addressProof">Address Proof (Utility Bill/Bank Statement):</label>
+    <input type="text" id="addressProof" placeholder="Enter your address proof details" required>
+
+    <label for="incomeProof">Income Proof (Salary Slip/Bank Statement):</label>
+    <input type="text" id="incomeProof" placeholder="Enter your income proof details" required>
+
+    <button class="btn" onclick="nextStep(5)">Next Step</button>
+  </div>
+
+  <!-- Step 5: Final Confirmation -->
+  <div class="form-section" id="step5">
+    <h2>Step 5: Final Confirmation</h2>
+    <div class="summary">
+      <h3>Summary of Details Entered:</h3>
+      <ul id="summaryList"></ul>
+    </div>
+    <button class="btn" onclick="submitForm()">Submit Application</button>
+  </div>
+</div>
+
+<footer>
+  <p>For more information, visit your nearest SBI branch or call <strong>1800 11 2211</strong>.</p>
+  <p>&copy; 2025 State Bank of India. All Rights Reserved.</p>
+</footer>
+
+<script>
+  function nextStep(step) {
+    if (step === 5) {
+        displaySummary();
+    }
+    
+    document.querySelectorAll('.form-section').forEach(section => {
+        section.classList.remove('active');
+    });
+    document.getElementById('step' + step).classList.add('active');
+  }
+
+  function updateEMI() {
+    let amount = document.getElementById('loanAmount').value;
+    let tenure = document.getElementById('loanTenure').value;
+    let interestRate = 7.5 / 100 / 12; // Assuming 7.5% annual interest
+    let months = tenure * 12;
+
+    if (amount > 0 && months > 0) {
+        let emi = (amount * interestRate * Math.pow(1 + interestRate, months)) / 
+                  (Math.pow(1 + interestRate, months) - 1);
+        document.getElementById('emiDisplay').innerText = `Estimated EMI: ₹${emi.toFixed(2)}`;
+    }
+  }
+
+  function displaySummary() {
+    let summaryList = document.getElementById('summaryList');
+    summaryList.innerHTML = `
+        <li><strong>Full Name:</strong> ${document.getElementById('fullName').value}</li>
+        <li><strong>Date of Birth:</strong> ${document.getElementById('dob').value}</li>
+        <li><strong>Loan Amount:</strong> ₹${document.getElementById('loanAmount').value}</li>
+        <li><strong>Loan Tenure:</strong> ${document.getElementById('loanTenure').value} years</li>
+        <li><strong>Estimated EMI:</strong> ${document.getElementById('emiDisplay').innerText}</li>
+    `;
+  }
+
+  function submitForm() {
+    alert("Application submitted successfully!");
+  }
+</script>
+
+</body>
+</html>

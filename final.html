@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIBIL Score Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .cibil-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-transform: uppercase; /* Converts input to uppercase automatically */
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error { color: red; }
+        .score { font-size: 20px; font-weight: bold; }
+        .eligible {
+            color: green;
+            font-size: 22px;
+            font-weight: bold;
+            animation: glow 1.5s infinite alternate;
+        }
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px green; }
+            100% { text-shadow: 0 0 20px limegreen; }
+        }
+        .not-eligible {
+            color: red;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        #proceedButton {
+            display: none;
+            margin-top: 15px;
+            background-color: #007BFF;
+        }
+        #proceedButton:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="cibil-container">
+        <h1>Check Your CIBIL Score</h1>
+        <label>Enter PAN Number:</label>
+        <input type="text" id="panNumber" required oninput="resetCibil()">
+        <button onclick="generateCibil()">Get CIBIL Score</button>
+        <p id="cibilScore" class="score"></p>
+        <p id="loanStatus"></p>
+        <button id="proceedButton" onclick="proceedToT1()">Proceed</button>
+    </div>
+
+    <script>
+        let userHistory = {
+            "ABCDE1234F": 810,
+            "XYZPQ5678G": 750,
+            "LMNOP4321H": 725
+        };
+
+        function generateCibil() {
+            let pan = document.getElementById("panNumber").value.toUpperCase();
+            let panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+            let cibilDisplay = document.getElementById("cibilScore");
+            let loanStatus = document.getElementById("loanStatus");
+            let proceedButton = document.getElementById("proceedButton");
+
+            if (!panRegex.test(pan)) {
+                cibilDisplay.textContent = "Invalid PAN format.";
+                cibilDisplay.className = "error";
+                loanStatus.textContent = "";
+                proceedButton.style.display = "none";
+                return;
+            }
+
+            let storedCibil = userHistory[pan] || Math.floor(Math.random() * (830 - 720 + 1)) + 720;
+            userHistory[pan] = storedCibil;
+
+            cibilDisplay.textContent = `Your CIBIL Score: ${storedCibil}`;
+            cibilDisplay.className = "score";
+
+            if (storedCibil >= 750) {
+                loanStatus.textContent = "Congratulations! You are eligible for a loan.";
+                loanStatus.className = "eligible";
+                proceedButton.style.display = "block";
+            } else {
+                loanStatus.textContent = "Sorry, you are not eligible for a loan.";
+                loanStatus.className = "not-eligible";
+                proceedButton.style.display = "none";
+            }
+        }
+
+        function resetCibil() {
+            document.getElementById("cibilScore").textContent = "";
+            document.getElementById("loanStatus").textContent = "";
+            document.getElementById("proceedButton").style.display = "none";
+        }
+
+        function proceedToT1() {
+            window.location.href = "t1.html";
+        }
+    </script>
+</body>
+</html>

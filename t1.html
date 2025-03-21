@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Loan Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .loan-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error { color: red; }
+        .eligible { color: green; }
+        .not-eligible { color: red; }
+    </style>
+</head>
+<body>
+    <div class="loan-container">
+        <h1>Car Loan Application</h1>
+        <label>Annual Income (₹):</label>
+        <input type="number" id="income" required>
+
+        <label>Enter Car Model:</label>
+        <input type="text" id="carModel" required placeholder="Enter car model">
+        
+        <label>Enter Car Market Price (₹):</label>
+        <input type="number" id="carPrice" required>
+
+        <button onclick="calculateLoan()">Check Loan Eligibility</button>
+        <p id="loanDetails"></p>
+        <button id="proceedButton" style="display:none;" onclick="proceedToApplication()">Proceed</button>
+    </div>
+
+    <script>
+        function calculateLoan() {
+            let income = parseFloat(document.getElementById("income").value);
+            let carPrice = parseFloat(document.getElementById("carPrice").value);
+            let loanDetails = document.getElementById("loanDetails");
+            let proceedButton = document.getElementById("proceedButton");
+
+            let maxLoan = carPrice * 0.85;
+
+            if (income >= maxLoan * 0.5) {
+                loanDetails.textContent = `Bank can offer up to ₹${maxLoan.toLocaleString()} based on your income.`;
+                loanDetails.className = "eligible";
+                proceedButton.style.display = "block";
+            } else {
+                loanDetails.textContent = "Sorry, you are not eligible for a loan.";
+                loanDetails.className = "not-eligible";
+                proceedButton.style.display = "none";
+            }
+        }
+
+        function proceedToApplication() {
+            window.location.href = "application.html";
+        }
+    </script>
+</body>
+</html>

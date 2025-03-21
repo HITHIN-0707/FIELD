@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Eligibility & EMI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: auto;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Loan Eligibility & EMI Calculator</h2>
+
+        <label for="income">Annual Income (₹):</label>
+        <input type="number" id="income" placeholder="Enter your annual income" required>
+
+        <label for="loanAmount">Loan Amount (₹):</label>
+        <input type="number" id="loanAmount" placeholder="Enter loan amount" required>
+
+        <label for="tenure">Loan Tenure (Years):</label>
+        <input type="number" id="tenure" placeholder="Enter loan tenure in years" required>
+
+        <button class="btn" onclick="checkEligibility()">Check Eligibility & Calculate EMI</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function checkEligibility() {
+            let income = parseFloat(document.getElementById("income").value);
+            let loanAmount = parseFloat(document.getElementById("loanAmount").value);
+            let tenure = parseInt(document.getElementById("tenure").value);
+
+            if (isNaN(income) || income < 400000) {
+                document.getElementById("result").innerHTML = "❌ You are not eligible for the loan.";
+                return;
+            }
+
+            if (isNaN(loanAmount) || isNaN(tenure) || tenure <= 0) {
+                document.getElementById("result").innerHTML = "❌ Please enter valid loan amount and tenure.";
+                return;
+            }
+
+            let interestRate = 7.5 / 100 / 12; // Monthly interest rate
+            let tenureMonths = tenure * 12; // Convert years to months
+
+            let emi = (loanAmount * interestRate * Math.pow(1 + interestRate, tenureMonths)) / 
+                      (Math.pow(1 + interestRate, tenureMonths) - 1);
+
+            document.getElementById("result").innerHTML = 
+                "✅ You are eligible!<br> Estimated EMI: ₹" + emi.toFixed(2) + " per month.";
+        }
+    </script>
+
+</body>
+</html>

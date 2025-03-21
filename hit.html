@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SBI Car Loan Application</title>
+<link rel="icon" type="image/jpeg" href="C:/Users/talas/Music/Gemini_Generated_Image_ubqmy1ubqmy1ubqm (1).jpeg">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: row; 
+            align-items: center; 
+            justify-content: center;
+            background: url("C:/Users/talas/Music/back.jpg") no-repeat center center;
+            background-size: cover;
+            position: relative;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-links {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            margin-left: 15px;
+            font-weight: bold;
+            padding: 8px 12px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(1.05);
+        }
+
+        .container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            justify-content: space-around; /* Added spacing */
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cover-container {
+            background: rgba(255, 255, 255, 0.98);
+            width: 50%;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            margin: 20px; /* Added margin */
+margin-right: 140px;
+margin-top: 120px;
+        }
+
+        h2, h3 {
+            color: #333;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            margin-top: 15px;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+
+        .btn:hover {
+            box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        .query-section {
+            width: 45%;
+            background: rgba(255, 255, 255, 0);
+            padding: 20px;
+            text-align: center;
+            border-top: 3px solid #007bff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            margin: 20px; /* Added margin */
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        input, textarea {
+            width: 90%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button[type="submit"] {
+            background: linear-gradient(45deg, #007bff, #0056b3);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            border: none;
+            font-size: 16px;
+        }
+
+        button[type="submit"]:hover {
+            background: linear-gradient(45deg, #0056b3, #003d80);
+            transform: scale(1.05);
+        }
+
+        .links-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .links-container a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .links-container a:hover {
+            color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column; 
+                align-items: center;
+            }
+            .cover-container, .query-section {
+                width: 90%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-links">
+        <a href="about.html">About</a>
+        <a href="details.html">Details</a>
+        <a href="service.html">Services</a>
+        <a href="contact.html">Contact Us</a>
+    </div>
+
+    <div class="container">
+        <div class="cover-container" id="coverPage">
+            <h2><strong>Welcome to CarCreditHub Loan Application</strong></h2>
+            <p>Apply for a car loan easily in just a few steps. Fill out the form to get started.</p>
+            <button class="btn" onclick="startApplication()">Start Application</button>
+            <div class="links-container">
+                <p><a href="terms.html">Terms and Conditions</a></p>
+                <p><a href="emi.html">EMI Calculator</a></p>
+                 <p><a href="eligible.html">CHECK ELIGIBILITY</a></p>
+            </div>
+        </div>
+
+        <div class="query-section" id="querySection">
+            <h3>Have a Query?</h3>
+            <form id="queryForm">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+                <label for="email">Your Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                <label for="message">Your Query:</label>
+                <textarea id="message" name="message" placeholder="Type your question here..." required></textarea>
+
+                <button type="submit">Submit Query</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function startApplication() {
+            window.location.href = "final.html";
+        }
+
+        document.getElementById("queryForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            alert("Your query has been submitted successfully! We will get back to you soon.");
+            document.getElementById("queryForm").reset();
+        });
+    </script>
+
+</body>
+</html>
